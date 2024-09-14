@@ -43,16 +43,28 @@ from collections import defaultdict
 from itertools import combinations
 # Function to generate candidate k-item sequences
 def generate_candidates(dataset, k):
+  candidates = defaultdict(int)
+  for seq in dataset:
+     for comb in combinations (seq, k):
 
+         candidates [comb] += 1
 
-    /WRITE YOUR CODE HERE/
+  return {item: support for item, support in candidates.items() if support >= min_support}
 
 
 #Function to perform GSP algorithm
 def gsp(dataset, min_support):
+  frequent_patterns = defaultdict(int) # Added assignment operator
+  k = 1
+  sequences = dataset
+  while True:
+      candidates = generate_candidates (sequences, k)
+      if not candidates:
+         break
+      frequent_patterns.update(candidates)
+      k += 1
 
-
-  /WRITE YOUR CODE HERE/
+  return frequent_patterns
 
 
 #Example dataset for each category
@@ -130,6 +142,13 @@ visualize_patterns_line(bottom_wear_result, 'Bottom Wear')
 visualize_patterns_line(party_wear_result, 'Party Wear')
 ```
 ### Output:
+![image](https://github.com/user-attachments/assets/995b89e3-d912-497c-9798-e35527aea1d7)
+Frequent Sequential Pattrens - Top Wear
+![image](https://github.com/user-attachments/assets/64cb7f05-66d5-4aef-96f1-623a9fc9ac07)
+Frequent Sequential Pattrens - Party Wear:
+![image](https://github.com/user-attachments/assets/d753980c-1270-4b46-b91a-fec0e8bbbb25)
+
 
 
 ### Result:
+Thus the implementation of the GSP algorithm in python has been successfully executed
